@@ -4,15 +4,9 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+<!-- <img style="float: left;"  scr="/images/about/darin-old.JPG"/> -->
 
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
+![Picture](/images/about/darin-old.JPG){: style="float: left; margin: 10px" width="25%"}
+I'm a PhD candidate at the University of Utah. My current research is on efficient steaming algorithms for topological analysis. I graduated from BYU with a BS in computer science. While there I worked as a Software Developer for a research group, where I mainly worked on the analysis of EEG readings, and data management. I also worked a research assistant in the HCMI Lab, where I programmed robot swarms to perform various tasks. During that time I also worked as a TA, helping to re-work the Programming Languages course, and picking up five new languages on the way. I am currently looking to transition to a full time position.
 
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
-
-
-[jekyll-organization]: https://github.com/jekyll
+This site consists of a few of the projects I have worked.
