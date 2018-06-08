@@ -4,6 +4,7 @@ title: "Natural Nodes: Finding Patterns in NYC Taxi trips"
 date: 2017-04-19
 categories: taxi datamining clustering unsupervised
 math: true
+thumbnail: /images/taxiCapStone/thumbnail.png
 ---
 
 Introduction

@@ -4,6 +4,7 @@ title:  "Sound Consensus"
 date:   2018-04-25
 categories: datamining music streaming
 math: true
+thumbnail: /images/musicMining/8.png
 ---
 
 

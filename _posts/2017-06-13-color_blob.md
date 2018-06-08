@@ -1,8 +1,9 @@
 ---
 layout: post
-title: "Color Blob Robot Localization"
+title: "Robot Localization Through Color Blob Detection"
 date: 2017-06-13
 categories: robotics localization sphero colorblob ros python
+thumbnail: /images/colorBlob/7.png
 ---
 
 Problem

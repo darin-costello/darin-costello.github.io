@@ -3,6 +3,7 @@ layout: post
 title: "Mother Duck!"
 date: 2017-08-14
 categories: robotics sphero turtlebot duck ai
+thumbnail: /images/motherduck/thumbnail.png
 ---
 
 Goal
