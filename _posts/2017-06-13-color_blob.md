@@ -9,14 +9,14 @@ thumbnail: /images/colorBlob/7.png
 Problem
 =============
 
-As part of the Mother Duck demo I needed a better way to localize the Spheros. The only sensor the Spheros have is an imu based odometer, which has two issues. First, its not very accurate. Second, each sphero acts in its own coordinate system, that is the odometer reads only its displacement from its original location, this data isn't enough to project the swarm into a common plane.
+As part of the Mother Duck demo I needed a better way to localize the Spheros. The only sensor the Spheros have is an imu based odometer which has two issues. First, its not very accurate. Second, each sphero acts in its own coordinate system, that is the odometer reads only its displacement from its original location, this data isn't enough to project the swarm into a common plane.
 
-The old system of using AprilTags (a VR taglike system) worked well, except it was difficult to attach flat tags to rolling robots, and the cup method is prone to failure, as seen in my AI [final project video](https://www.youtube.com/watch?v=WF05LLP_99U&t=69s). Also, it was computationally expensive. 
+The old system of using AprilTags (a VR tag like system) worked well, except it was difficult to attach flat tags to rolling robots, and the cup method was prone to failure as seen in my AI [final project video](https://www.youtube.com/watch?v=WF05LLP_99U&t=69s). Also, it was computationally expensive. 
 
 Solution
 ========
 
-There is a technique in image recognition called color blog detection. It simply finds continuous pixels all of the same or similar color or intensity. This method runs into issues when the scene is varied, that is many none sphero color blobs are detected when brightly lit. Luckily the Spheros are a light source, thus if we set the camera exposure low all but the Spheros become black. The process looks like this:
+There is a technique in image recognition called color blog detection. It simply finds continuous pixels all of the same or similar color and intensity. This method runs into issues when the scene is varied producing many false positives. Luckily the Spheros are a light source, thus if we set the camera exposure low all but the Spheros become black. The blob detection process looks like this:
 
 {% highlight python %}
 image = cam.read()
@@ -26,7 +26,10 @@ mask = cv2.inRange(hsv_image, lb, up)
 _, blob_list, _ = cv2.findContours(mask, ...)
 for blob in blob_list:
     #find color of blob
-    color = cv2.mean(hsv_image, mask)
+    blob_mask[...] = 0
+    #mask only this blob
+    cv2.drawContours(blob_mask, blob)
+    color = cv2.mean(hsv_image, blob_mask)
 
     #find center location of blob
     moment = cv2.moments(blob)
@@ -35,7 +38,7 @@ for blob in blob_list:
 
 {% endhighlight %}
 
- Finally, each Sphero needs to be individually identifiable. This is done by assigning each sphero a color at startup, spreading the colors evenly across the spectrum. To adjust for camera variation, the Spheros set themselves so they appear the correct color to the camera. The follow code is the startup process, stripped of boilerplate and a simpler adjustment algorithm.
+ Finally, each Sphero needs to be individually identifiable. This is done by assigning each sphero a color spread evenly across the spectrum. To adjust for camera variation, the Spheros set themselves so they appear the correct color to the camera. The following code is the startup process, stripped of boilerplate and using simpler adjustment algorithm.
  
  {% highlight python %}
  hue_max = 179.0
@@ -59,6 +62,6 @@ The startup process from the point of view of the camera is shown here.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/fuwC1P1KDzo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-The color blob tracker is a ros package that runs the web cam, finds all blobs in each frame, and publishes there locations and colors. Other nodes deal with adjusting the colors, and translating colors to spheros. In testing this system could uniquely identify about 11 spheros with no mistakes. It worked with more but occasionally would mix them up.
+The color blob tracker is a ros package that runs the web cam, finds all blobs in each frame, and publishes there locations and colors. Other nodes deal with adjusting the colors, and translating colors to spheros. In testing, this system could uniquely identify about 11 spheros with no mistakes. It worked with more but occasionally would mix them up.
 
 The final ros packages can be downloaded [here](/data/color_blob.zip)
